@@ -33,6 +33,8 @@
                     <a href="{{@site.url}}">Latest Posts</a>
                     {{#if @site.facebook}}<a href="{{facebook_url @site.facebook}}" target="_blank" rel="noopener">Facebook</a>{{/if}}
                     {{#if @site.twitter}}<a href="{{twitter_url @site.twitter}}" target="_blank" rel="noopener">Twitter</a>{{/if}}
+                    <a href="{{@site.url}}/contact" target="_blank" rel="noopener">Contact</a>
+                    <a href="{{@site.url}}/terms" target="_blank" rel="noopener">Terms & Conditions</a>
                     <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
                 </nav>
             </div>
@@ -99,19 +101,15 @@
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
-
         // Give the parameter a variable name
         var action = getParameterByName('action');
-
         $(document).ready(function () {
             if (action == 'subscribe') {
                 $('body').addClass("subscribe-success");
             }
-
             $('.subscribe-success-message .subscribe-close').click(function () {
                 $('.subscribe-success-message').addClass('close');
             });
-
             // Reset form on opening subscrion overlay
             $('.subscribe-button').click(function() {
                 $('.subscribe-overlay form').removeClass();
