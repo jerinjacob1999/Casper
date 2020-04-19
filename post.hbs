@@ -114,16 +114,55 @@ into the {body} of the default.hbs template --}}
                 {{> subscribe-form}}
             {{/if}}
 
-            {{!--
+            
             <section class="post-full-comments">
-                If you want to embed comments, this is a good place to do it!
+                <div id="disqus_thread"></div>
+            <script>
+            var disqus_config = function () {
+                 this.page.url = "{{url absolute="true"}}";
+                 this.page.identifier = "ghost-{{comment_id}}"
+                 };
+                 (function() {
+                 var d = document, s = d.createElement('script');
+                 s.src = 'https://https-cybergenei-tech.disqus.com/embed.js';
+                 s.setAttribute('data-timestamp', +new Date());
+                 (d.head || d.body).appendChild(s);
+                 })();
+                 </script>
             </section>
-            --}}
+            
 
         </article>
 
     </div>
 </main>
+
+<script>
+    const readingProgress = (contentArea, progressBar) => {
+    const content = document.querySelector(contentArea);
+    const progress = document.querySelector(progressBar);
+    const frameListening = () => {
+        const contentBox = content.getBoundingClientRect();
+        const midPoint = window.innerHeight / 2;
+        const minsRemaining = Math.round(progress.max - progress.value);
+        if (contentBox.top > midPoint) {
+            progress.value = 0;
+        }
+        if (contentBox.top < midPoint) {
+            progress.value = progress.max;
+        }
+        if (contentBox.top <= midPoint && contentBox.bottom >= midPoint) {
+            progress.value =
+                (progress.max * Math.abs(contentBox.top - midPoint)) /
+                contentBox.height;
+        }
+        window.requestAnimationFrame(frameListening);
+    };
+    window.requestAnimationFrame(frameListening);
+};
+readingProgress(".post-full-content", ".reading-progress-bar");
+</script>
+
 
 {{!-- Links to Previous/Next posts --}}
 <aside class="read-next outer">
